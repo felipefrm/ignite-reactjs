@@ -1,0 +1,21 @@
+{
+  "id": "ed41e07a-a333-49ca-afd2-319d45cae585",
+  "uid": "suscipit-sequi-est",
+  "type": "publication",
+  "data": {
+    "title": [
+      {
+        "type": "paragraph",
+        "text": "Proident non aute dolor et cupidatat nulla sunt culpa. Sit non laboris velit duis irure amet amet elit non reprehenderit commodo duis est ex excepteur.",
+        "spans": []
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Nisi laborum eiusmod nisi velit culpa ut elit consequat.",
+        "spans": []
+      }
+    ]
+  }
+}
