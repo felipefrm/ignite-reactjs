@@ -1,0 +1,61 @@
+{
+  "id": "0fdb0f5d-c777-4bde-a8c4-4e2f9f60ee1e",
+  "uid": "maiores-ut-sit",
+  "type": "posts",
+  "data": {
+    "title": "matrix bricks-and-clicks initiatives",
+    "subtitle": "implement cross-platform e-commerce",
+    "author": "empower out-of-the-box initiatives",
+    "banner": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": "Placeholder image",
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1589321599763-d66926c29613?w=900&h=500&fit=crop"
+    },
+    "content": [
+      {
+        "heading": "iterate robust methodologies",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Mollit sunt ullamco adipisicing aliquip non pariatur consectetur tempor. Laboris culpa voluptate mollit adipisicing commodo reprehenderit do laboris nisi enim ipsum.",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "engineer compelling e-commerce",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Ex aliquip irure aliqua anim ipsum cillum labore ullamco eu cupidatat. Cillum proident dolore irure mollit.",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "empower end-to-end architectures",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Magna in sunt anim amet nulla pariatur eiusmod dolor dolor sit magna fugiat occaecat.",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "incentivize dot-com niches",
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Ullamco deserunt exercitation consequat laborum sunt velit sunt et officia ullamco exercitation.",
+            "spans": []
+          }
+        ]
+      }
+    ]
+  }
+}
