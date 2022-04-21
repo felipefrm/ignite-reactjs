@@ -36,9 +36,20 @@ export default function Home({ postsPagination }: HomeProps) {
     fetch(postsPagination.next_page)
       .then(response => response.json())
       .then(data => {
+        const newPostsData = data.results.map((post: Post) => ({
+          uid: post.uid,
+          first_publication_date: formatDate(post.first_publication_date),
+          data: {
+            title: post.data.title,
+            subtitle: post.data.subtitle,
+            author: post.data.author,
+          }
+        }
+        ))
+
         const updatedPosts: PostPagination = {
           next_page: data.next_page,
-          results: [...posts.results, ...data.results]
+          results: [...posts.results, ...newPostsData]
         }
 
         setPosts(updatedPosts)
