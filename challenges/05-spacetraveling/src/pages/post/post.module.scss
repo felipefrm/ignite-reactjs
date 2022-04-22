@@ -1,1 +1,39 @@
-// TODO
+article {
+
+  .banner {
+    margin: 0 auto;
+    display: flex;
+    margin-bottom: 5rem;
+  }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    section {
+      margin-top: 4rem;
+
+      p {
+        color: var(--body);
+        font-size: 1.125rem;
+        text-align: justify;
+      }
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      color: var(--heading)
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 2.25rem;
+      margin-bottom: 4rem;
+    }
+  }
+}

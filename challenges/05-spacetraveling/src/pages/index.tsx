@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
 import Head from 'next/head';
 
 import { getPrismicClient } from '../services/prismic';
@@ -7,7 +8,8 @@ import { formatDate } from '../utils/formatDate';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import { FiCalendar, FiUser } from 'react-icons/fi';
+
+import PostInfo from '../components/PostInfo';
 
 interface Post {
   uid?: string;
@@ -33,7 +35,7 @@ export default function Home({ postsPagination }: HomeProps) {
   const [posts, setPosts] = useState(postsPagination)
 
   async function handleLoadPosts() {
-    fetch(postsPagination.next_page)
+    fetch(posts.next_page)
       .then(response => response.json())
       .then(data => {
         const newPostsData = data.results.map((post: Post) => ({
@@ -63,23 +65,25 @@ export default function Home({ postsPagination }: HomeProps) {
         <title>Home | spacetraveling</title>
       </Head>
 
+      <header className={styles.headerContainer}>
+        <div className={styles.headerContent}>
+          <img src="/images/Logo.svg" alt="logo" />
+        </div>
+      </header>
+
       <main className={styles.container}>
         {posts.results.map(post => (
           <div key={post.uid} className={styles.posts}>
-            <a href="#">
-              <strong>{post.data.title}</strong>
-              <p>{post.data.subtitle}</p>
-              <div className={styles.info}>
-                <span>
-                  <FiCalendar />
-                  <time>{post.first_publication_date}</time>
-                </span>
-                <span>
-                  <FiUser />
-                  <p>{post.data.author}</p>
-                </span>
-              </div>
-            </a>
+            <Link href={`/post/${post.uid}`}>
+              <a>
+                <strong>{post.data.title}</strong>
+                <p>{post.data.subtitle}</p>
+                <PostInfo
+                  date={post.first_publication_date}
+                  author={post.data.author}
+                />
+              </a>
+            </Link>
           </div>
         ))}
 
