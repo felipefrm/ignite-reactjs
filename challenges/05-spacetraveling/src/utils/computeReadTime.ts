@@ -3,9 +3,9 @@ export function computeReadTime(contentArray) {
   const wordsPerMinutes = 200
 
   contentArray.forEach(content => {
-    wordCount += content.heading.match(/\S+/g).length;
+    wordCount += content.heading.split(' ').length;
     content.body.forEach(body => {
-      wordCount += body.text.match(/\S+/g).length;
+      wordCount += body.text?.split(' ').length;
     })
   });
 
