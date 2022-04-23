@@ -1,24 +1,32 @@
 article {
 
   .banner {
-    margin: 0 auto;
-    display: flex;
+    width: 100%;
+    height: 25rem;
+    object-fit: cover;
     margin-bottom: 5rem;
   }
 
   .content {
     max-width: 720px;
     margin: 0 auto;
-    padding: 0 2rem;
 
     section {
       margin-top: 4rem;
 
-      p {
+      p, span, a, ul, ol {
         color: var(--body);
         font-size: 1.125rem;
         text-align: justify;
       }
+
+      &:last-of-type {
+        margin-bottom: 4rem;
+      }
+    }
+
+    a, strong {
+      color: var(--highlight)
     }
 
     h1, h2 {
@@ -34,6 +42,14 @@ article {
     h2 {
       font-size: 2.25rem;
       margin-bottom: 4rem;
+    }
+
+    ul, ol {
+      padding: 2rem 0 2rem 1.5rem;
+    
+      li {
+        margin: 0.5rem 0;
+      }
     }
   }
 }
