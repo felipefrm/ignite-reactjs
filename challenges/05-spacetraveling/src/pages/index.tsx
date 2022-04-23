@@ -31,31 +31,40 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps) {
+  const formattedPosts = postsPagination.results.map(post => ({
+    ...post,
+    first_publication_date: formatDate(post.first_publication_date)
+  }))
 
-  const [posts, setPosts] = useState(postsPagination)
+  const [posts, setPosts] = useState<PostPagination>({
+    next_page: postsPagination.next_page,
+    results: formattedPosts
+  })
 
   async function handleLoadPosts() {
-    fetch(posts.next_page)
-      .then(response => response.json())
-      .then(data => {
-        const newPostsData = data.results.map((post: Post) => ({
-          uid: post.uid,
-          first_publication_date: formatDate(post.first_publication_date),
-          data: {
-            title: post.data.title,
-            subtitle: post.data.subtitle,
-            author: post.data.author,
+    if (posts.next_page !== null) {
+      fetch(posts.next_page)
+        .then(response => response.json())
+        .then(data => {
+          const newPostsData = data.results.map((post: Post) => ({
+            uid: post.uid,
+            first_publication_date: formatDate(post.first_publication_date),
+            data: {
+              title: post.data.title,
+              subtitle: post.data.subtitle,
+              author: post.data.author,
+            }
           }
-        }
-        ))
+          ))
 
-        const updatedPosts: PostPagination = {
-          next_page: data.next_page,
-          results: [...posts.results, ...newPostsData]
-        }
+          const updatedPosts: PostPagination = {
+            next_page: data.next_page,
+            results: [...posts.results, ...newPostsData]
+          }
 
-        setPosts(updatedPosts)
-      })
+          setPosts(updatedPosts)
+        })
+    }
   }
 
 
@@ -107,7 +116,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const postsData = postsResponse.results.map(post => ({
     uid: post.uid,
-    first_publication_date: formatDate(post.first_publication_date),
+    first_publication_date: post.first_publication_date,
     data: {
       title: post.data.title,
       subtitle: post.data.subtitle,
