@@ -1,19 +1,19 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { RichText } from 'prismic-dom';
 
 import { getPrismicClient } from '../../services/prismic';
 
-import commonStyles from '../../styles/common.module.scss';
-import styles from './post.module.scss';
 
-import { RichText } from 'prismic-dom';
 import { formatDate } from '../../utils/formatDate';
+import { computeReadTime } from '../../utils/computeReadTime';
 
 import PostInfo from '../../components/PostInfo';
 import Header from '../../components/Header';
-import { computeReadTime } from '../../utils/computeReadTime';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { Comments } from '../../components/Comments';
 
+import styles from './post.module.scss';
 
 interface Post {
   uid: string,
@@ -73,6 +73,8 @@ export default function Post({ post }: PostProps) {
               />
             </section>
           ))}
+
+          <Comments />
 
         </main>
       </article>
