@@ -6,7 +6,6 @@ import Head from 'next/head';
 import { getPrismicClient } from '../services/prismic';
 import { formatDate } from '../utils/formatDate';
 
-import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 
 import PostInfo from '../components/PostInfo';
