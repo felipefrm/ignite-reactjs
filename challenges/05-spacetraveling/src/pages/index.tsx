@@ -32,7 +32,7 @@ interface HomeProps {
 export default function Home({ postsPagination }: HomeProps) {
   const formattedPosts = postsPagination.results.map(post => ({
     ...post,
-    first_publication_date: formatDate(post.first_publication_date)
+    first_publication_date: formatDate(post.first_publication_date, "date")
   }))
 
   const [posts, setPosts] = useState<PostPagination>({
@@ -47,7 +47,7 @@ export default function Home({ postsPagination }: HomeProps) {
         .then(data => {
           const newPostsData = data.results.map((post: Post) => ({
             uid: post.uid,
-            first_publication_date: formatDate(post.first_publication_date),
+            first_publication_date: formatDate(post.first_publication_date, "date"),
             data: {
               title: post.data.title,
               subtitle: post.data.subtitle,

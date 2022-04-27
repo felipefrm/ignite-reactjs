@@ -11,29 +11,46 @@ article {
     max-width: 720px;
     margin: 0 auto;
 
-    section {
-      margin-top: 4rem;
+    .updatedAt {
+      font-style: italic;
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      color: var(--info);
+    }
 
-      p, span, a, ul, ol {
+    section {
+      margin-top: 3.75rem;
+
+      p,
+      span,
+      a,
+      ul,
+      ol {
         color: var(--body);
         font-size: 1.125rem;
         text-align: justify;
       }
 
+      p + p {
+        margin-top: 2rem;
+      }
+
       &:last-of-type {
-        margin-bottom: 4rem;
+        margin-bottom: 3.75rem;
       }
     }
 
-    a, strong {
+    a,
+    strong {
       color: var(--highlight)
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       font-weight: 700;
       color: var(--heading)
     }
-    
+
     h1 {
       font-size: 3rem;
       margin-bottom: 1.5rem;
@@ -41,12 +58,13 @@ article {
 
     h2 {
       font-size: 2.25rem;
-      margin-bottom: 4rem;
+      margin-bottom: 3.75rem;
     }
 
-    ul, ol {
+    ul,
+    ol {
       padding: 2rem 0 2rem 1.5rem;
-    
+
       li {
         margin: 0.5rem 0;
       }

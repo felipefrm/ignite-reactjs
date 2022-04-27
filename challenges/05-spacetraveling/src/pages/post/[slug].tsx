@@ -5,7 +5,6 @@ import { RichText } from 'prismic-dom';
 
 import { getPrismicClient } from '../../services/prismic';
 
-
 import { formatDate } from '../../utils/formatDate';
 import { computeReadTime } from '../../utils/computeReadTime';
 
@@ -18,6 +17,7 @@ import styles from './post.module.scss';
 interface Post {
   uid: string,
   first_publication_date: string | null;
+  last_publication_date: string | null;
   data: {
     title: string;
     subtitle: string;
@@ -57,10 +57,15 @@ export default function Post({ post }: PostProps) {
           <h1>{post.data.title}</h1>
           <div className={styles.info}>
             <PostInfo
-              date={formatDate(post.first_publication_date)}
+              date={formatDate(post.first_publication_date, "date")}
               author={post.data.author}
               readTime={computeReadTime(post.data.content)}
             />
+            {post.last_publication_date &&
+              <p className={styles.updatedAt}>
+                * editado em {formatDate(post.last_publication_date, "datetime")}
+              </p>
+            }
           </div>
 
           {post.data.content.map(content => (
@@ -108,6 +113,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post: Post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
+    last_publication_date: response.last_publication_date,
     data: {
       title: response.data.title,
       subtitle: response.data.subtitle,
@@ -120,7 +126,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   return {
-    props: { 
+    props: {
       post
     }
   }
