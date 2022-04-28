@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { RichText } from 'prismic-dom';
 
 import { getPrismicClient } from '../../services/prismic';
@@ -36,9 +37,23 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  navigation: {
+    prevPost: {
+      uid: string;
+      data: {
+        title: string;
+      }
+    },
+    nextPost: {
+      uid: string;
+      data: {
+        title: string;
+      }
+    }
+  }
 }
 
-export default function Post({ post }: PostProps) {
+export default function Post({ post, navigation }: PostProps) {
   const router = useRouter()
 
   if (router.isFallback) {
@@ -51,9 +66,9 @@ export default function Post({ post }: PostProps) {
         <title>{post.data.title} | spacetraveling</title>
       </Head>
       <Header />
-      <article>
+      <article className={styles.post}>
         <img className={styles.banner} src="https://images.prismic.io/spacetraveling-felipefrm/1b21ee0b-402c-4096-acd7-5d1af22adb76_Banner.png?auto=compress,format" alt="Post Banner" />
-        <main className={styles.content}>
+        <main>
           <h1>{post.data.title}</h1>
           <div className={styles.info}>
             <PostInfo
@@ -79,9 +94,29 @@ export default function Post({ post }: PostProps) {
             </section>
           ))}
 
-          <Comments />
 
         </main>
+        <footer>
+          <div className={styles.navigation}>
+            {navigation.prevPost &&
+              <Link href={`/post/${navigation.prevPost.uid}`}>
+                <div className={styles.prev}>
+                  <p>{navigation.prevPost.data.title}</p>
+                  <p>Post anterior</p>
+                </div>
+              </Link>
+            }
+            {navigation.nextPost &&
+              <Link href={`/post/${navigation.nextPost.uid}`}>
+                <div className={styles.next}>
+                  <p>{navigation.nextPost.data.title}</p>
+                  <p>Próximo post</p>
+                </div>
+              </Link>
+            }
+          </div>
+          <Comments />
+        </footer>
       </article>
     </>
   )
@@ -110,6 +145,24 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const response = await prismic.getByUID('posts', String(slug))
 
+  const prevPost = await prismic.getByType('posts', {
+    pageSize: 1,
+    after: response.id,
+    orderings: {
+      field: 'document.first_publication_date',
+      direction: 'asc'
+    },
+  })
+
+  const nextPost = await prismic.getByType('posts', {
+    pageSize: 1,
+    after: response.id,
+    orderings: {
+      field: 'document.first_publication_date',
+      direction: 'desc'
+    },
+  })
+
   const post: Post = {
     uid: response.uid,
     first_publication_date: response.first_publication_date,
@@ -127,7 +180,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      post
+      post,
+      navigation: {
+        prevPost: prevPost.results[0] ? prevPost.results[0] : null,
+        nextPost: nextPost.results[0] ? nextPost?.results[0] : null
+      }
     }
   }
 };
