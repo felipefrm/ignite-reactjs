@@ -1,0 +1,17 @@
+aside.preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 5.5rem auto;
+  width: 700px;
+  height: 58px;
+  border-radius: 4px;
+  background-color: var(--heading);
+  cursor: pointer;
+
+  a {
+    font-weight: 600;
+    color: var(--background);
+  }
+}

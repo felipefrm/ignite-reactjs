@@ -9,6 +9,7 @@ import { formatDate } from '../utils/formatDate';
 import styles from './home.module.scss';
 
 import PostInfo from '../components/PostInfo';
+import PreviewExitButton from '../components/PreviewExitButton';
 
 interface Post {
   uid?: string;
@@ -27,9 +28,10 @@ interface PostPagination {
 
 interface HomeProps {
   postsPagination: PostPagination;
+  preview: Boolean;
 }
 
-export default function Home({ postsPagination }: HomeProps) {
+export default function Home({ postsPagination, preview }: HomeProps) {
   const formattedPosts = postsPagination.results.map(post => ({
     ...post,
     first_publication_date: formatDate(post.first_publication_date, "date")
@@ -105,13 +107,22 @@ export default function Home({ postsPagination }: HomeProps) {
         }
 
       </main>
+
+      { preview && <PreviewExitButton /> }
+      
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({
+  preview = false,
+  previewData,
+}) => {
   const prismic = getPrismicClient({});
-  const postsResponse = await prismic.getByType('posts', { pageSize: 1 });
+  const postsResponse = await prismic.getByType('posts', { 
+    pageSize: 1,
+    ref: previewData?.ref ?? null,
+   });
 
   const postsData = postsResponse.results.map(post => ({
     uid: post.uid,
@@ -130,7 +141,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      postsPagination
+      postsPagination,
+      preview
     }
   }
 };

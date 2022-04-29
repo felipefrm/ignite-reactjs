@@ -11,6 +11,7 @@ import { computeReadTime } from '../../utils/computeReadTime';
 
 import PostInfo from '../../components/PostInfo';
 import Header from '../../components/Header';
+import PreviewExitButton from '../../components/PreviewExitButton';
 import { Comments } from '../../components/Comments';
 
 import styles from './post.module.scss';
@@ -37,6 +38,7 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview: boolean;
   navigation: {
     prevPost: {
       uid: string;
@@ -53,7 +55,7 @@ interface PostProps {
   }
 }
 
-export default function Post({ post, navigation }: PostProps) {
+export default function Post({ post, preview, navigation }: PostProps) {
   const router = useRouter()
 
   if (router.isFallback) {
@@ -116,6 +118,7 @@ export default function Post({ post, navigation }: PostProps) {
             }
           </div>
           <Comments />
+          { preview && <PreviewExitButton /> }
         </footer>
       </article>
     </>
@@ -138,12 +141,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+  previewData
+}) => {
   const prismic = getPrismicClient({});
 
   const { slug } = params
 
-  const response = await prismic.getByUID('posts', String(slug))
+  const response = await prismic.getByUID('posts', String(slug), {
+    ref: previewData?.ref ?? null,
+  })
 
   const prevPost = await prismic.getByType('posts', {
     pageSize: 1,
@@ -181,6 +190,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       post,
+      preview,
       navigation: {
         prevPost: prevPost.results[0] ? prevPost.results[0] : null,
         nextPost: nextPost.results[0] ? nextPost?.results[0] : null
