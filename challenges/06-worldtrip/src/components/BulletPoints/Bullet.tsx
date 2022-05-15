@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { Flex, Image, Text, useBreakpointValue } from "@chakra-ui/react";
 
 interface BulletPointProps {
@@ -5,7 +6,8 @@ interface BulletPointProps {
   text: string;
 }
 
-export function Bullet({ icon, text }: BulletPointProps) {
+function Bullet({ icon, text }: BulletPointProps) {
+
   const isMobile = useBreakpointValue({
     base: false,
     sm: true
@@ -34,3 +36,7 @@ export function Bullet({ icon, text }: BulletPointProps) {
     </Flex>
   )
 }
+
+export default dynamic(() => Promise.resolve(Bullet), {
+  ssr: false
+})
