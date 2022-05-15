@@ -1,9 +1,10 @@
 import { Flex, Heading } from "@chakra-ui/react";
+
 import { Banner } from "../components/Banner";
 import { BulletPoints } from "../components/BulletPoints";
 import { Divider } from "../components/Divider";
-
 import { Header } from "../components/Header"
+import { Slider } from "../components/Slider";
 
 const Home = () => {
   return (
@@ -21,6 +22,8 @@ const Home = () => {
       >
         Vamos nessa? <br />Então escolha seu continente
       </Heading>
+
+      <Slider />
     </Flex>
   )
 }

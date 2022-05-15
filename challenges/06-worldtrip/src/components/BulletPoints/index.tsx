@@ -1,5 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { Bullet } from "./Bullet";
+
+import Bullet from "./Bullet";
 
 export function BulletPoints() {
   return (
