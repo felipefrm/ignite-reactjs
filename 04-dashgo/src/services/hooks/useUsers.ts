@@ -25,7 +25,7 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
 
   const users = data.users.map(user => ({
     ...user,
-    createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
+    createdAt: new Date(user.created_at).toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long',
       year: 'numeric'
@@ -40,6 +40,6 @@ export async function getUsers(page: number): Promise<GetUsersResponse> {
 
 export function useUsers(page: number) {
   return useQuery(['users', page], () => getUsers(page), {
-    staleTime: 1000 * 5 // 5 seconds
+    staleTime: 1000 * 60 * 10 // 10 minutes
   })
 }
