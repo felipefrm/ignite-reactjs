@@ -36,7 +36,10 @@ export default function Home(): JSX.Element {
   );
 
   const formattedData = useMemo(() => {
-    return data.pages.map(page => page.data).flat()
+    if (data) {
+      return data.pages.map(page => page.data).flat()
+    }
+    return []
   }, [data]);
 
   if (isLoading) {
